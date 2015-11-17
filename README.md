@@ -1,2 +1,2 @@
 # SGEncomendas
-Managements System Clients, Products and Orders
+Management's System of Clients, Products and Orders.
