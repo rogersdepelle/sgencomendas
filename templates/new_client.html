@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% load materialize %}
+
+{% block tab_title %}SGEncomendas | Novo Cliente{% endblock %}
+
+{% block main %}
+  <div class="row">
+      <div class="col l8 offset-l2 m10 offset-m1 s12">
+        <h5 class="center">Novo Cliente</h5>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.name|as_material:"s12" }}
+            {{ form.cpf|as_material:"s12" }}
+            {{ form.email|as_material:"s12" }}
+            {{ form.phone|as_material:"s12" }}
+            {{ form.adress|as_material:"s12" }}
+            <div class="right">
+                <br>
+                <a href="{% url 'clients' %}" class="btn grey">
+                    Cancelar
+                </a>&nbsp;&nbsp;
+                <button type="submit" class="btn blue">
+                    Salvar
+                </button>
+            </div>
+        </form>
+      </div>
+  </div>
+{% endblock main %}

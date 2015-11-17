@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% load materialize %}
+
+{% block tab_title %}SGEncomendas | Novo Produto{% endblock %}
+
+{% block main %}
+  <div class="row">
+      <div class="col l8 offset-l2 m10 offset-m1 s12">
+        <h5 class="center">Novo Produto</h5>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.name|as_material:"s12" }}
+            {{ form.description|as_material:"s12" }}
+            {{ form.price|as_material:"s12" }}
+            {{ form.cost|as_material:"s12" }}
+            {{ form.minimum_quantity|as_material:"s12" }}
+            <div class="right">
+                <br>
+                <a href="{% url 'products' %}" class="btn grey">
+                    Cancelar
+                </a>&nbsp;&nbsp;
+                <button type="submit" class="btn blue">
+                    Salvar
+                </button>
+            </div>
+        </form>
+      </div>
+  </div>
+{% endblock main %}

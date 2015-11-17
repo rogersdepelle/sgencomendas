@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block main %}
+<div class="row">
+  <form method="post">
+    {% csrf_token %}
+    <br>
+    <h4 class="center">Login</h4>
+    <div class="input-field col s8 m6 offset-m3 offset-s2">
+      <input id="username" name="username" type="text" value="{{ username }}">
+      <label for="username">Nome de Usuário</label>
+    </div>
+    <div class="input-field col s8 m6 offset-m3 offset-s2">
+      <input id="password" name="password" type="password" class="validate">
+      <label for="password">Senha</label>
+    </div>
+    <div class="col s8 m6 offset-m3 offset-s2 center">
+      <p class="center red-text">{{ msg }}</p>
+      <br>
+      <button class="btn indigo">Entrar</button>
+    </div>
+  </form>
+</div>
+{% endblock main %}

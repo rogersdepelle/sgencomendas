@@ -1,0 +1,23 @@
+*{
+  font-size: 12pt;
+}
+
+nav ul{
+	font-weight: bold;
+}
+
+main{
+  padding-top: 20px;
+}
+
+#main_div{
+  padding-top: 20%;
+}
+
+.options{
+    min-width: 150px;
+}
+
+table{
+    max-width: 100%;
+}

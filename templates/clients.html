@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block tab_title %}ERP | Clientes{% endblock %}
+
+{% block main %}
+  <div class="row">
+    <div class="col m6">
+      <h4>Clientes</h4>
+      Total: {{ clients.count }}
+    </div>
+    <div class="col m6">
+      <br> 
+      <a href="{% url 'new_client' %}" class="btn blue right">
+        Novo Cliente
+      </a>
+    </div>
+  </div>
+  <table class="striped">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Telefone</th>
+        <th>Endereço</th>
+        <th class="center">Opções</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for c in clients %}
+      <tr>
+        <td>{{ c.name }}</td>
+        <td>{{ c.phone }}</td>
+        <td>{{ c.adress }}</td>
+        <td class="center options">
+          <a class="modal-trigger" href="#modal_info{{c.id}}"><i class="fa fa-sticky-note fa-2x black-text"></i></a>
+          &ensp;
+          <a href="{% url 'edit_client' c.id %}"><i class="fa fa-edit fa-2x black-text"></i></a>
+          &ensp;
+          {% if user.is_superuser%}
+          <a class="modal-trigger" href="#modal_rmv{{c.id}}"><i class="fa fa-user-times fa-2x black-text"></i></a>
+          {% endif %}
+        </td>
+        <div id="modal_info{{c.id}}" class="modal">
+          <div class="modal-content">
+            <h5>{{ c.name }}</h5>
+            <p><b>CPF:</b> {{ c.cpf }}</p>
+            <p><b>E-mail:</b> {{ c.email }}</p>
+            <p><b>Telefone:</b> {{ c.phone }}</p>
+            <p><b>Endereço:</b> {{ c.adress }}</p>
+          </div>
+          <div class="modal-footer">
+            <a href="#!" class=" modal-action modal-close btn-flat">Fechar</a>
+          </div>
+        </div>
+        <div id="modal_rmv{{c.id}}" class="modal">
+          <div class="modal-content">
+            <h5>Deseja realmente remover o cliente {{ c.name }}?</h5>
+            <div class="right">
+                <br>
+                <a href="#!" class="btn grey modal-action modal-close">
+                  Cancelar
+                </a>&nbsp;&nbsp;
+                <a href="{% url 'rmv_client' c.id %}" class="btn blue">
+                  Sim
+                </a>
+                <p>&nbsp;</p>
+            </div>
+            <br>
+          </div>
+        </div>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endblock main %}

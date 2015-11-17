@@ -1,0 +1,66 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <meta name="description" content="Sistema para gerenciamento de encomendas">
+  <meta name="keywords" content="Sistema de Gestão, Sistema Encomendas">
+  <meta name="author" content="Rogers Prates">
+
+  <title>{% block tab_title %}SGEncomendas{% endblock %}</title>
+
+    <link href="{% static 'css/materialize.min.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="{% static 'css/main.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="{% static 'css/font-awesome.min.css' %}" media="all" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+  <nav class="indigo">
+    <div class="nav-wrapper container">
+      <a href="{% url 'index' %}" class="brand-logo">
+        SGEncomendas
+      </a>
+      {% if user.is_authenticated %}
+        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons"><i class="fa fa-bars"></i></i></a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="{% url 'orders' %}">Encomendas</a></li>
+          <li><a href="{% url 'clients' %}">Clientes</a></li>
+          <li><a href="{% url 'products' %}">Produtos</a></li>
+          {% if user.is_superuser%}
+            <li><a href="{% url 'billing' %}">Faturamento</a></li>
+            <li><a href="{% url 'admin:index' %}" target="_blank">Admin</a></li>
+          {% endif %}
+          <li><a href="{% url 'logout' %}"><i class="fa fa-sign-out"></i></a></li>
+        </ul>
+        <ul class="side-nav" id="mobile-demo">
+          <li><a href="{% url 'orders' %}">Encomendas</a></li>
+          <li><a href="{% url 'clients' %}">Clientes</a></li>
+          <li><a href="{% url 'products' %}">Produtos</a></li>
+          {% if user.is_superuser%}
+            <li><a href="{% url 'billing' %}">Faturamento</a></li>
+            <li><a href="{% url 'admin:index' %}" target="_blank">Admin</a></li>
+          {% endif %}
+          <li><a href="{% url 'logout' %}"><i class="fa fa-sign-out"></i></a></li>
+        </ul>
+      {% endif %}
+    </div>
+  </nav>
+
+  <main>
+    <div class="container">
+    {% block main %}
+    {% endblock main %}
+    </div>
+  </main>
+
+  <!--  Scripts-->
+  <script src="{% static 'js/jquery.js' %}"></script>
+  <script src="{% static 'js/materialize.min.js' %}"></script>
+  <script src="{% static 'js/maskedinput.min.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+
+  </body>
+</html>

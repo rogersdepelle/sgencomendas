@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block main %}
+<div class="row" id="main_div">
+  <div class="col s6 m4">
+    <div class="center">
+      <a href="{% url 'new_order' %}">
+        <i class="fa fa-cart-plus fa-5x"></i>
+        <b><p>Nova Encomenda</p></b>
+      </a>
+    </div>
+  </div>
+  <div class="col s6 m4">
+    <div class="center">
+      <a href="{% url 'new_client' %}">
+        <i class="fa fa-user-plus fa-5x"></i>
+        <b><p>Novo Cliente</p></b>
+      </a>
+    </div>
+  </div>
+  <div class="col s6 m4">
+    <div class="center">
+      <a href="{% url 'new_product' %}">
+        <i class="fa fa-plus-square fa-5x"></i>
+        <b><p>Novo Produto</p></b>
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock main %}

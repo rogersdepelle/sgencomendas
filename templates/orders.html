@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block tab_title %}ERP | Encomendas{% endblock %}
+
+{% block main %}
+  <div class="row">
+    <div class="col m6">
+      <h4>Encomendas</h4>
+      Total: {{ orders.count }}
+    </div>
+    <div class="col m6">
+      <br> 
+      <a href="{% url 'new_order' %}" class="btn blue right">
+        Nova Encomenda
+      </a>
+    </div>
+  </div>
+  <table class="striped">
+    <thead>
+      <tr>
+        <th>Cliente</th>
+        <th>Produto</th>
+        <th>Data de Entrega</th>
+        <th class="center">Opções</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for o in orders %}
+      <tr>
+        <td>{{ o.client }}</td>
+        <td>{{ o.product }}</td>
+        <td>{{ o.delivery }}</td>
+        <td class="center options">
+          <a class="modal-trigger" href="#modal_info{{o.id}}"><i class="fa fa-sticky-note fa-2x black-text"></i></a>
+          &ensp;
+          <a href="{% url 'edit_order' o.id %}"><i class="fa fa-edit fa-2x black-text"></i></a>
+          &ensp;
+          {% if user.is_superuser %}
+          <a class="modal-trigger" href="#modal_rmv{{o.id}}"><i class="fa fa-trash fa-2x black-text"></i></a>
+          {% endif %}
+        </td>
+        <div id="modal_info{{o.id}}" class="modal">
+          <div class="modal-content">
+            <h5>{{ o.client }}</h5>
+            <p><b>Produto:</b> {{ o.product }}</p>
+            <p><b>Quantidade:</b> {{ o.price }}</p>
+            <p><b>Status:</b> {{ o.status }}</p>
+            <p><b>Data de Entrega:</b> {{ o.delivery }}</p>
+            <p><b>Valor Total:</b> {{ o.get_value }}</p>
+          </div>
+          <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close btn-flat">Fechar</a>
+          </div>
+        </div>
+        <div id="modal_rmv{{o.id}}" class="modal">
+          <div class="modal-content">
+            <h5>Deseja realmente remover a encomenda {{ o }}?</h5>
+            <div class="right">
+                <br>
+                <a href="#!" class="btn grey modal-action modal-close">
+                    Cancelar
+                </a>&nbsp;&nbsp;
+                <a href="{% url 'rmv_order' o.id %}" class="btn blue">
+                    Sim
+                </a>
+                <p>&nbsp;</p>
+            </div>
+            <br>
+          </div>
+        </div>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endblock main %}
